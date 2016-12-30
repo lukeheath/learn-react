@@ -6,7 +6,7 @@ Ok. Yes. I hear you - there are a lot of _"Learn React"_ repos out there. I foun
 This one may also be confusing by I promise to *try really hard* to make things simple, because a lot of incredibly smart people have done some amazing work to make that possible.
 
 Here are links to the various topics and their branches:
-- [Basic Components](/tree/basic-components)
+- [Basic Components](/ecoker/learn-react/tree/basic-components)
 - [Props](docs/more_words.md)
 - [State](docs/more_words.md)
 - [Redux](docs/more_words.md)

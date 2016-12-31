@@ -7,6 +7,7 @@ Components get props. They _do not change_ props. A parent provides props to a c
 
 Let's start with our `Menu` _Global Component_.
 
+_src: `/assets/js/commponents/Menu.jsx`_
 ```
 import React, { Component } from 'react'
 
@@ -52,6 +53,8 @@ Using this ES6 version of the React syntax, you can define `defaultProps` on you
 ## Passing Props to Child Components
 
 Let's crack open that _Global Component_ and pass some props to our `Menu`
+
+_src: `/assets/js/containers/Example/index.jsx`_
 ```
 import React, { Component } from 'react'
 
@@ -90,6 +93,98 @@ class Example extends Component {
 
 export default Example
 ```
+
+Great! Now we're passing data into the menu. I want to call out something interesting here:
+```
+<Menu { ...menuData } />
+```
+
+We can use the spread operator to pass multiple props into a component. For example, this:
+```
+<Menu menuItems={ menuItems } title="Example" size="large" />
+```
+
+Is the same as taking this object:
+```
+var menuData = {
+    menuItems:[],
+    title: "Example",
+    size: "large"
+}
+```
+
+And setting the attributes like we did in our example:
+```
+<Menu { ...menuData } />
+```
+
+I was _very_ excited when I found that. I hope you enjoy it too.
+
+### Back to business
+Let's go ahead and update our `FancyTitle` _Component_ while we're in here.
+
+_src: `/assets/js/commponents/FancyTitle.jsx`_
+```
+import React, { Component } from 'react'
+
+class FancyTitle extends Component {
+  render() {
+    return (
+        <h4 className="fancy-title">{ this.props.text }</h4>
+    );
+  }
+}
+
+FancyTitle.defaultProps = {
+    text: "I need a text prop!"
+}
+
+export default FancyTitle
+```
+
+Let's pass in that `text` prop in our _Container Component_.
+
+_src: `/assets/js/containers/Example/index.jsx`_
+```
+import React, { Component } from 'react'
+
+import Menu from 'components/Menu.jsx'
+import FancyTitle from 'components/FancyTitle.jsx'
+
+class Example extends Component {
+  render() {
+    /* 
+    // LATER THIS SHOULD COME FROM A SERVICE OR API CALL
+    */
+    var menuData = {
+        menuItems: [
+            {
+                text: 'home',
+                location: '/'
+            },
+            {
+                text: 'about',
+                location: '/#about'
+            },
+            {
+                text: 'contact',
+                location: '/#contact'
+            }
+        ]
+    }
+    return (
+        <div>
+            <Menu { ...menuData } />
+            <FancyTitle text="I'm a Prop!" />
+        </div>
+    )
+  }
+}
+
+export default Example
+```
+
+Try removing the text prop to see your `defaultProp` show up on the `FancyTitle` component. This is an example of using defaultProps as a simple form of documentation. Kinda hacky, but useful!
 
 ---------
 

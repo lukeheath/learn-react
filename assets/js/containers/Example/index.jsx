@@ -27,7 +27,7 @@ class Example extends Component {
     return (
         <div>
             <Menu { ...menuData } />
-            <FancyTitle />
+            <FancyTitle text="I'm a Prop!" />
         </div>
     )
   }

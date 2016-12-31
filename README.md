@@ -12,7 +12,7 @@ sudo npm -g install sails
 
 Next, clone the repo
 ```
-git@github.com:ecoker/learn-react.git
+git clone https://github.com/ecoker/learn-react.git
 ```
 
 Jump into the project and install the dependencies:
@@ -27,7 +27,14 @@ Example:
 git checkout basic-components
 ```    
 
-Then use `sails lift` to start your project! And good luck! React is a great framework. I hope this helps you on your journey.
+Launch the site!
+```
+sails lift
+```
+
+Your site should now be accessible here [here](http://localhost:1337)
+
+Good luck! React is a fantastic framework. I hope this helps you on your journey.
 
 ---------
 

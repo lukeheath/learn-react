@@ -1,5 +1,5 @@
-SVGs
-----
+Stylesheets
+-----------
 
 ** Coming Soon **
 

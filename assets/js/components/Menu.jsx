@@ -9,7 +9,7 @@ class Menu extends Component {
 
     getMenuItems() {
         return this.props.menuItems.map(function(menuItem, i){
-            return <li key={ `menu-item-${i}` }><a href={`#${ menuItem.location }`}>{ menuItem.text }</a></li>
+            return <li key={ `menu-item-${i}` }><a href={`${ menuItem.location }`}>{ menuItem.text }</a></li>
         })
     }
 

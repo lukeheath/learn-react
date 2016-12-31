@@ -188,6 +188,60 @@ Try removing the text prop to see your `defaultProp` show up on the `FancyTitle`
 
 ---------
 
+## Time for a Bit of Clean up
+We really don't want to be creating that array of elements inside the render function. I mean, we can, but it's a little ugly. Let's do it inside a function.
+
+_src: `/assets/js/commponents/Menu.jsx`_
+```
+import React, { Component } from 'react'
+
+class Menu extends Component {
+  
+    constructor(props){
+        super(props)
+        this.getMenuItems = this.getMenuItems.bind(this)
+    }
+
+    getMenuItems() {
+        return this.props.menuItems.map(function(menuItem, i){
+            return <li key={ `menu-item-${i}` }><a href={`#${ menuItem.location }`}>{ menuItem.text }</a></li>
+        })
+    }
+
+    render() {
+        return (
+            <header>
+                <ul>
+                    { this.getMenuItems() }
+                </ul>
+            </header>
+        );
+    }
+
+}
+
+Menu.defaultProps = {
+    menuItems:[]
+}
+
+export default Menu
+```
+
+Here, we introduce a few more things. First off, props are available to the render function, but not to custom functions like `getMenuItems` by default. We need to bind the `this` value inside the contructor to expose `props` to the component.
+
+```
+constructor(props){
+    super(props)
+    this.getMenuItems = this.getMenuItems.bind(this)
+}
+```
+
+After we do that, we can comfortably access what we need. What else could we do here? 
+
+_Bonus Points_: Create a new `MenuItem` component and use that for the menu items instead of just returning a list element. It won't be part of our repo going forward, but it may be fun to play with.
+
+---------
+
 Ready for more?
 - [Basic Components](https://github.com/ecoker/learn-react/tree/basic-components)
 - Props

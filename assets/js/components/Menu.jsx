@@ -1,11 +1,6 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 
 class Menu extends Component {
-  constructor(props){
-      super(props)
-  }
-
   render() {
     return (
         <header>
@@ -13,10 +8,6 @@ class Menu extends Component {
         </header>
     );
   }
-}
-
-Menu.defaultProps = {
-    defaultCheckedArray: []    
 }
 
 export default Menu

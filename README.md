@@ -1,5 +1,5 @@
-Events
-------
+SVGs
+----
 
 ** Coming Soon **
 

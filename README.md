@@ -236,7 +236,11 @@ constructor(props){
 }
 ```
 
-After we do that, we can comfortably access what we need. What else could we do here? 
+After we do that, we can comfortably access what we need.
+
+Here's a preview of what your page should look like now:
+![Learn React Preview](walkthrough/images/props-preview.png "Props Preview")
+
 
 _Bonus Points_: Create a new `MenuItem` component and use that for the menu items instead of just returning a list element. It won't be part of our repo going forward, but it may be fun to play with.
 

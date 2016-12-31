@@ -11,9 +11,6 @@ class HighFives extends Component {
   
   constructor(props){
       super(props)
-      this.state = {
-          tally: this.props.tally
-      }
       this.add = this.add.bind(this)
       this.subtract = this.subtract.bind(this)
   }
@@ -42,11 +39,11 @@ class HighFives extends Component {
 }
 
 HighFives.defaultProps = {
-    tally: 0,
     increment:1,
     max:10,
     min:0,
-    name:"Points"
+    name:"Points",
+    highFives: 0
 }
 
 export default HighFives

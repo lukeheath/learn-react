@@ -64,6 +64,8 @@ this.props.dispatch({
 
 Generally, this makes your code more readable. I know it doesn't look like a big difference, but it pays off in the long run!
 
+Also, I use _Actions_ to do any data manipulation that's necessary before we send things off to the _reducer_. It keeps me from doing any data transforms before a dispatch call and that helps keep our code _DRY_. In other words, much more reusable!
+
 ---------
 
 ## Reducers
@@ -197,9 +199,6 @@ class HighFives extends Component {
   
   constructor(props){
       super(props)
-      this.state = {
-          tally: this.props.tally
-      }
       this.add = this.add.bind(this)
       this.subtract = this.subtract.bind(this)
   }
@@ -228,11 +227,11 @@ class HighFives extends Component {
 }
 
 HighFives.defaultProps = {
-    tally: 0,
     increment:1,
     max:10,
     min:0,
-    name:"Points"
+    name:"Points",
+    highFives: 0
 }
 
 export default HighFives
@@ -363,10 +362,135 @@ Again, everything should look _the same_, but now you have High Fives as part of
 
 ---------
 
-## Getting a Closer Look at our Updates
+## Looking Closer at the <HighFives /> Component
 
-First, let's look at the `<HighFives />` component.
+First, we're using the _experimental_ ES6 decorator to _connect_ our Redux state. Notice that the state is automagically assigned to the `Example` property of the _state object_ because the reducer is exporting that as its name:
+```
+@connect(state => ({
+    highFives: state.Example.highFives    
+}))
+```
 
+Next, we have updated our `add` and `subtract` functions to dispatch:
+```
+add(ev){
+    ev.preventDefault()
+    this.props.dispatch( ExampleActions.addHighFives(this.props.increment) )
+}
+
+subtract(ev){
+    ev.preventDefault()
+    this.props.dispatch( ExampleActions.subtractHighFives(this.props.increment) )
+}
+```
+
+We are also no longer showing the state of the `tally` like the `<Counter />` component does, but showing the `prop`:
+```
+<h2>{ this.props.highFives }</h2>
+```
+
+And, even though we shouldn't have a problem with it - it's a good idea to add the default for the _connected_ props anyway, so we added *highFives* to our *defaultProps*:
+```
+HighFives.defaultProps = {
+    increment:1,
+    max:10,
+    min:0,
+    name:"Points",
+    highFives: 0
+}
+```
+
+Take a moment to compare the `<Counter />` side by side with `<HighFives />` and explore a bit!
+
+---------
+
+## Using our Data in Other Components
+So, it doesn't make sense to use Redux unless you need to use things across components that don't have a parent / child relationship. Or you just need flexibility.
+
+This is pretty important: *NOT EVERY APPLICATION NEEDS REDUX*. Just because it's the new _hot sauce_ in town doesn't mean you have to use it. :)
+
+So, let's _connect_ our *highFives* to the basic example:
+
+First, import the connect function:
+```
+import { connect } from 'react-redux'
+```
+
+Then, we connect it!
+```
+@connect(state => ({
+    highFives: state.Example.highFives    
+}))
+```
+
+Display our connected data
+```
+<h1>Current High Five Count: { this.props.highFives }</h1>
+```
+
+Protect our component with `defaultProps`
+```
+Example.defaultProps = {
+    highFives: 0
+}
+```
+
+### Put it all Together
+
+```
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
+import Menu from 'components/Menu'
+import FancyTitle from 'components/FancyTitle'
+import Counter from './components/Counter'
+import HighFives from './components/HighFives'
+
+@connect(state => ({
+    highFives: state.Example.highFives    
+}))
+
+class Example extends Component {
+  render() {
+    /* 
+    // LATER THIS SHOULD COME FROM A SERVICE OR API CALL
+    */
+    var menuData = {
+        menuItems: [
+            {
+                text: 'home',
+                location: '/'
+            },
+            {
+                text: 'about',
+                location: '/#about'
+            },
+            {
+                text: 'contact',
+                location: '/#contact'
+            }
+        ]
+    }
+    return (
+        <div>
+            <Menu { ...menuData } />
+            <h1>Current High Five Count: { this.props.highFives }</h1>
+            <FancyTitle text="I'm a Prop!" />
+            <HighFives max={ 30 } min={ -10 } increment={ 2 } />
+            <Counter name="Backflips" max={ 5 } />
+        </div>
+    )
+  }
+}
+
+Example.defaultProps = {
+    highFives: 0
+}
+
+export default Example
+```
+
+Ok, that should cover the basics. Lots of complicated stuff in here! Take your time to digest it all before moving on to the next section. This is definitely the *hardest* part of this walkthrough. If you survived, you'll breeze through the rest. :)
 
 ---------
 

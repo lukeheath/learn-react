@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 
-import Menu from 'components/Menu.jsx'
-import FancyTitle from 'components/FancyTitle.jsx'
+import Menu from 'components/Menu'
+import FancyTitle from 'components/FancyTitle'
+import Counter from 'components/Counter'
 
 class Example extends Component {
   render() {
@@ -28,6 +29,7 @@ class Example extends Component {
         <div>
             <Menu { ...menuData } />
             <FancyTitle text="I'm a Prop!" />
+            <Counter />
         </div>
     )
   }

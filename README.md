@@ -119,7 +119,7 @@ There are some gotchas with React. First off, `class` is a JavaScript reserved w
 
 Also, *JSX* carries _XHTML_ rules. So you have to close all your tags and *if you want to return multiple tags or components, they must have a single parent*.
 
-I know, it's weird, but easy to work around. That's why we have this in our example:
+I know, it's weird, but easy to work around. That's why we have a `<div>` wrapping our components in the example:
 ```
 return (
     <div>

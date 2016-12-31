@@ -495,7 +495,7 @@ Ok, that should cover the basics. Lots of complicated stuff in here! Take your t
 
 In the mean time, we've managed to make a pretty ugly web page (hooray?). Make sure your stuff looks like this before moving along:
 
-
+![Learn React Preview](walkthrough/images/redux-preview.png "Basic Components Preview")
 
 ---------
 

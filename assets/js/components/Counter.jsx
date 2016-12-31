@@ -11,15 +11,19 @@ class Counter extends Component {
       this.subtract = this.subtract.bind(this)
   }
   
-  add(){
+  add(ev){
+      ev.preventDefault()
+      var tally = this.state.tally + this.props.increment > this.props.max ? this.props.max : this.state.tally + this.props.increment
       this.setState({
-          tally: this.state.tally + 1
+          tally
       })
   }
   
-  subtract(){
+  subtract(ev){
+      ev.preventDefault()
+      var tally = this.state.tally - this.props.increment < this.props.min ? this.props.min : this.state.tally - this.props.increment
       this.setState({
-          tally: this.state.tally - 1
+          tally
       })
   }
   
@@ -27,7 +31,8 @@ class Counter extends Component {
     return (
         <div>
             <button onClick={ this.subtract }>Subtract</button>
-            <p>{ this.state.tally }</p>
+            <p><small>{ this.props.name }</small></p>
+            <h2>{ this.state.tally }</h2>
             <button onClick={ this.add }>Add</button>
         </div>
     );
@@ -36,7 +41,11 @@ class Counter extends Component {
 }
 
 Counter.defaultProps = {
-    tally: 0
+    tally: 0,
+    increment:1,
+    max:10,
+    min:0,
+    name:"Points"
 }
 
 export default Counter

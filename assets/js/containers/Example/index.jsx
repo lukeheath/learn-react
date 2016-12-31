@@ -29,7 +29,8 @@ class Example extends Component {
         <div>
             <Menu { ...menuData } />
             <FancyTitle text="I'm a Prop!" />
-            <Counter />
+            <Counter name="High Fives" max={ 30 } min={ -10 } increment={ 2 } />
+            <Counter name="Backflips" max={ 5 } />
         </div>
     )
   }

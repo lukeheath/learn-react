@@ -56,8 +56,6 @@ module.exports.webpack = {
         alias: {
             containers: 'containers',
             components: 'components',
-            customer: 'containers/Customer',
-            home: 'containers/Home',
             actions: 'actions',
             reducers: 'reducers',
             icons: 'icons',

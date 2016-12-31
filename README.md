@@ -17,9 +17,11 @@ Similar to state. The variable `state` inside that very fancy function would be 
 
 The same _should_ be true for components. 
 
-Let's create a new component to illustrate.
+Let's create a new _Local Component_ to illustrate. Take note of the location of the file. We've placed it inside the _Example_ Container folder. That's because we plan to never use this outside of the Example Container and if we get rid of it some day, we want it to go away too.
 
-_src: `/assets/js/commponents/Counter.jsx`_
+> This is personal preference for my own file organization. If you don't like it, toss it out! :)
+
+_src: `/assets/js/containers/Example/components/Counter.jsx`_
 ```
 import React, { Component } from 'react'
 
@@ -88,7 +90,7 @@ You'll also see our first _Event_ binding. We'll cover those in detail later, bu
 
 So, that's great, but what if we want to combine our use of props and state on this component? Let's modify it a bit!
 
-_src: `/assets/js/commponents/Counter.jsx`_
+_src: `/assets/js/containers/Example/components/Counter.jsx`_
 ```
 import React, { Component } from 'react'
 
@@ -143,15 +145,17 @@ Counter.defaultProps = {
 export default Counter
 ```
 
-Now that we have some props we can pass in there, let's update our _Container Component_
+Now that we have some props we can pass in there, let's update our _Container Component_. 
 
-_src: `/assets/js/commponents/Counter.jsx`_
+> Notice that the location of the import is different since it's relative to the location of this component instead of using the aliases from the WebPack config.
+
+_src: `/assets/js/containers/Example/components/Counter.jsx`_
 ```
 import React, { Component } from 'react'
 
 import Menu from 'components/Menu'
 import FancyTitle from 'components/FancyTitle'
-import Counter from 'components/Counter'
+import Counter from './components/Counter'
 
 class Example extends Component {
   render() {

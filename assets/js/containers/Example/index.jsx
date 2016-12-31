@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import Menu from 'components/Menu'
 import FancyTitle from 'components/FancyTitle'
-import Counter from 'components/Counter'
+import Counter from './components/Counter'
 
 class Example extends Component {
   render() {

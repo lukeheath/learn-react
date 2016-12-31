@@ -492,6 +492,11 @@ export default Example
 
 Ok, that should cover the basics. Lots of complicated stuff in here! Take your time to digest it all before moving on to the next section. This is definitely the *hardest* part of this walkthrough. If you survived, you'll breeze through the rest. :)
 
+
+In the mean time, we've managed to make a pretty ugly web page (hooray?). Make sure your stuff looks like this before moving along:
+
+
+
 ---------
 
 Ready for more?

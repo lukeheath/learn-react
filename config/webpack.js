@@ -31,7 +31,7 @@ if (process.env.NODE_ENV == 'production') {
     }))
 }
 
-var entries = [path.resolve(__dirname, '../assets/js/index.js')]
+var entries = [path.resolve(__dirname, '../assets/js/index.jsx')]
 if (process.env.NODE_ENV !== 'production') entries.push( 'webpack-hot-middleware/client' )
 
 // compile js assets into a single bundle file

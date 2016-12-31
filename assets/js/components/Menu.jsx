@@ -2,12 +2,21 @@ import React, { Component } from 'react'
 
 class Menu extends Component {
   render() {
+    var menuItems = this.props.menuItems.map(function(menuItem, i){
+        return <li key={ `menu-item-${i}` }><a href={`#${ menuItem.location }`}>{ menuItem.text }</a></li>
+    })
     return (
         <header>
-            <h2>Menu goes here...</h2>
+            <ul>
+                { menuItems }
+            </ul>
         </header>
     );
   }
+}
+
+Menu.defaultProps = {
+    menuItems:[]
 }
 
 export default Menu

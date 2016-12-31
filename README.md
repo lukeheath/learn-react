@@ -11,14 +11,361 @@ import { Provider } from 'react-redux'
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 ```
 
-Before we get to the next part of this file, we need to talk about _Actions_ and _Reducers_.
+Before we get to the next part of this file, we need to talk about _Actions_ and _Reducers_ (because the next thing we need to go is create a _store_ with those actions and reducers).
 
 ---------
 
 ## Actions
+For this, I've created a basic action called _"Increment"_ inside `/assets/js/actions/Example.js`:
+```
+export const INCREMENT = 'INCREMENT';
+export const increment = () => {
+    return {
+        type: INCREMENT,
+        payload: true
+    }
+}
+```
 
+It looks messy and redundant, but really it's just a helper function for what are called _dispatches_. So, what's a dispatch?
 
+*To _dispatch_ something means that you're sending data to a _reducer_*
 
+#### Basically...
+
+*Dispatch:* Sends Data.
+*Reducer:* Assigns data to object.
+
+Here's a simple dispatch:
+```
+this.props.dispatch({
+    type: 'Increment',
+    payload: data
+})
+```
+
+This gets a bit messy and it's not super readable. Remember the _Actions_ from earlier. Here's what it looks like doing a dispatch using _Actions_:
+```
+this.props.dispatch( ExampleActions.increment() )
+```
+
+This is much easier to read! It becomes especially helpful when you have lots of basic crud actions like _Create_, _Update_, _Destroy_. You can set up your actions to do something like this:
+```
+this.props.dispatch( ExampleActions.create(data) )
+```
+
+Instead of:
+```
+this.props.dispatch({
+    type: 'ExampleCreate',
+    payload: data
+})
+```
+
+Generally, this makes your code more readable. I know it doesn't look like a big difference, but it pays off in the long run!
+
+---------
+
+## Reducers
+
+Here is our example _reducer_:
+```
+import * as ExampleActions from 'actions/Example'
+
+let initialState = {
+    tally: 0
+}
+
+function Example(state = initialState, action) {
+    switch (action.type) {
+        case ExampleActions.INCREMENT:
+            return {
+                ...state,
+                tally: state.tally + 1
+            }
+        default:
+            return state
+    }
+}
+
+export default Example
+```
+
+The reducer _returns_ the updated value of the state. We're using a bunch of ES6 helpers here. Let's break them down before moving ahead.
+
+First, the `Example.js` actions file exports _a lot_ of stuff. By doing this:
+```
+import * as ExampleActions from 'actions/Example'
+```
+
+Instead of having a bunch of _imports_ available as global variables, this make puts them all as object properties. For example, instead of:
+```
+this.props.dispatch( create(data) )
+```
+
+We have:
+```
+this.props.dispatch( ExampleActions.create(data) )
+```
+
+This is really helpful when we're handling multiple types of actions on one page.
+
+We're also using _default function values_:
+```
+function Example(state = initialState, action) {
+    ...
+}
+```
+
+In this example, we need state to be set, so we're able to have a _default state value_ if it hasn't been set.
+
+We're also making use of the spread operator for returning the updated state:
+```
+{
+    ...state,
+    tally: state.tally + 1
+}
+```
+
+This allows us to combine objects without overwriting existing properties. It basically works the same way that [Object.assign()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) works.
+
+---------
+
+## Putting it all Together
+
+_src: `/assets/js/index.js`:_
+```
+import React from 'react'
+import { render } from 'react-dom'
+import { Provider } from 'react-redux'
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
+
+/* CONTAINERS --- */
+import Example from 'containers/Example'
+
+/* COMBINE REDUCERS --- */
+import * as reducers from './reducers'
+export const store = createStore(
+    combineReducers({
+        ...reducers
+    })
+)
+
+/* ADD BASE/GLOBAL STYLES --- */
+/* IGNORE THIS FOR NOW - WE'LL COVER IT LATER, BUT THIS IS GOING TO GIVE US SOME SUPER BASIC STYLES --- */
+require('./../styles/base.scss')
+
+/* RENDER WITH REDUX --- */
+render((
+    <Provider store={ store }>
+        <Example />
+    </Provider>
+), document.getElementById('root'))
+```
+
+We now have the `<Provider />` component which acts as a parent passing `props` to children. We also have our `reducers` and `actions`.
+
+At this point, _everything should look the same_.
+
+---------
+
+## Quick Recap
+
+- Redux allows you to share data between components as props
+- Dispatches send data
+- Actions make dispatches more explicit and are not required, but are helpful
+- Reducers apply data updates to the shared Redux State object
+
+---------
+
+## Let's Redux!
+
+We already have the counter, but it's really designed to showcase the use of _State_. Let's create a *new* component, that's pretty much identical, but designed to showcase *Redux*:
+
+_src: `/assets/js/containers/Example/components/HighFives.jsx`:_
+```
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
+import * as ExampleActions from 'actions/Example'
+
+@connect(state => ({
+    highFives: state.Example.highFives    
+}))
+
+class HighFives extends Component {
+  
+  constructor(props){
+      super(props)
+      this.state = {
+          tally: this.props.tally
+      }
+      this.add = this.add.bind(this)
+      this.subtract = this.subtract.bind(this)
+  }
+  
+  add(ev){
+      ev.preventDefault()
+      this.props.dispatch( ExampleActions.addHighFives(this.props.increment) )
+  }
+  
+  subtract(ev){
+      ev.preventDefault()
+      this.props.dispatch( ExampleActions.subtractHighFives(this.props.increment) )
+  }
+  
+  render() {
+    return (
+        <div>
+            <button onClick={ this.subtract }>Subtract</button>
+            <p><small>High Fives</small></p>
+            <h2>{ this.props.highFives }</h2>
+            <button onClick={ this.add }>Add</button>
+        </div>
+    );
+  }
+
+}
+
+HighFives.defaultProps = {
+    tally: 0,
+    increment:1,
+    max:10,
+    min:0,
+    name:"Points"
+}
+
+export default HighFives
+```
+
+To support this functionality, we ned to update our _ExampleActions_ and our _ExampleReducer_:
+
+_src: `/assets/js/actions/Example.js`:_
+```
+export const INCREMENT = 'INCREMENT';
+export const increment = () => {
+    return {
+        type: INCREMENT,
+        payload: true
+    }
+}
+
+export const ADD_HIGH_FIVES = 'ADD_HIGH_FIVES';
+export const addHighFives = (inc) => {
+    return {
+        type: ADD_HIGH_FIVES,
+        payload: inc
+    }
+}
+
+export const SUBTRACT_HIGH_FIVES = 'SUBTRACT_HIGH_FIVES';
+export const subtractHighFives = (inc) => {
+    return {
+        type: SUBTRACT_HIGH_FIVES,
+        payload: inc
+    }
+}
+```
+
+_src: `/assets/js/reducers/Example.js`:_
+```
+import * as ExampleActions from 'actions/Example'
+
+let initialState = {
+    tally: 0,
+    highFives: 0
+}
+
+function Example(state = initialState, action) {
+    switch (action.type) {
+        
+        case ExampleActions.INCREMENT:
+            return {
+                ...state,
+                tally: state.tally + 1
+            }
+
+        case ExampleActions.ADD_HIGH_FIVES:
+            return {
+                ...state,
+                highFives: state.highFives + action.payload
+            }
+
+        case ExampleActions.SUBTRACT_HIGH_FIVES:
+            return {
+                ...state,
+                highFives: state.highFives - action.payload
+            }
+
+        default:
+            return state
+
+    }
+}
+
+export default Example
+```
+
+And we need to use our new component!
+
+_src: `/assets/js/containers/Example/index.jsx`:_
+```
+import React, { Component } from 'react'
+
+import Menu from 'components/Menu'
+import FancyTitle from 'components/FancyTitle'
+import Counter from './components/Counter'
+import HighFives from './components/HighFives'
+
+class Example extends Component {
+  render() {
+    /* 
+    // LATER THIS SHOULD COME FROM A SERVICE OR API CALL
+    */
+    var menuData = {
+        menuItems: [
+            {
+                text: 'home',
+                location: '/'
+            },
+            {
+                text: 'about',
+                location: '/#about'
+            },
+            {
+                text: 'contact',
+                location: '/#contact'
+            }
+        ]
+    }
+    return (
+        <div>
+            <Menu { ...menuData } />
+            <FancyTitle text="I'm a Prop!" />
+            <HighFives max={ 30 } min={ -10 } increment={ 2 } />
+            <Counter name="Backflips" max={ 5 } />
+        </div>
+    )
+  }
+}
+
+export default Example
+```
+
+### WOW, We Updated all the things!
+Let's recap what we've done:
+- Created a New `HighFive.jsx` component that updates the _Redux State_ instead of its internal state.
+- Updated our `ExampleActions` to support _adding_ and _subtracting_ HighFives
+- Updated our `ExampleReducer` so that it manages the _Redux State_
+- Added the new `<HighFive />` component to our `Example` page.
+
+Again, everything should look _the same_, but now you have High Fives as part of a globally accessible state regardless of parent/child relationships of the component.
+
+---------
+
+## Getting a Closer Look at our Updates
+
+First, let's look at the `<HighFives />` component.
 
 
 ---------

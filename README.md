@@ -20,19 +20,19 @@ Jump into the project and install the dependencies:
 cd learn-react && npm install
 ```
 
-Working locally, you'll want to check out the different branches. You can go through the much nicer looking `ReadMe` on GitHub, but work the code by checking out branches.
+Working locally, you'll want to check out the different branches. Use the `ReadMe` on GitHub to follow along, but work the code by checking out branches.
 
 Example:
 ```
 git checkout basic-components
-```    
+```
 
 Launch the site!
 ```
 sails lift
 ```
 
-Your site should now be accessible here [here](http://localhost:1337)
+Your site should now be accessible here [here](http://localhost:1337) and you can follow along with the _basic-components_ [walkthrough](https://github.com/ecoker/learn-react/tree/basic-components).
 
 Good luck! React is a fantastic framework. I hope this helps you on your journey.
 

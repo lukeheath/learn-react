@@ -27,7 +27,7 @@ Icons are special components that return an SVG element. You can add event bindi
 Depending on how you're combinding and minifying your files, it really doesn't matter what you name your component files, but I would humbly submit the following two _"rules"_:
 
 - Use Capital words for the filename and when importing the component. It makes it easier to distinguish components in your markup. Example: `Component`
-- Use the `.jsx` extention. Yes, it's weird, but it does use jsx syntax and that helps differentiate for other files: `Component.jsx`
+- Use the `.jsx` extention. Yes, it's weird, but it does use jsx syntax and that helps differentiate it from other files: `Component.jsx`
 
 -------
 

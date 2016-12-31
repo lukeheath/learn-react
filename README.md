@@ -73,7 +73,66 @@ class Example extends Component {
 export default Example
 ```
 
+Ok, that works, but we should really figure out what it looks like to have more than one component. Let's make another _Global Component_.
+
+_src: `/assets/js/commponents/FancyTitle.jsx`_
+```
+import React, { Component } from 'react'
+
+class FancyTitle extends Component {
+  render() {
+    return (
+        <h4 className="fancy-title">Fancy Page Title</h4>
+    );
+  }
+}
+
+export default FancyTitle
+```
+
+Now, let's update our _Container_.
+
+_src: `/assets/js/containers/Example/index.js`_
+```
+import React, { Component } from 'react'
+
+import Menu from 'components/Menu.jsx'
+import FancyTitle from 'components/FancyTitle.jsx'
+
+class Example extends Component {
+  render() {
+    return (
+        <div>
+            <Menu />
+            <FancyTitle />
+        </div>
+    )
+  }
+}
+
+export default Example
+```
+
+_See something *weird*?_
+
+There are some gotchas with React. First off, `class` is a JavaScript reserved word, so we don't use it on our components. So to add a class to the `FancyTitle`, we use _className_.
+
+Also, *JSX* carries _XHTML_ rules. So you have to close all your tags and *if you want to return multiple tags or components, they must have a single parent*.
+
+I know, it's weird, but easy to work around. That's why we have this in our example:
+```
+return (
+    <div>
+        <Menu />
+        <FancyTitle />
+    </div>
+)
+```
+
 Take a moment to _Lift Your Sails_: `sails lift` and preview the site: [Your Local Site](http://localhost:1337)
+
+You should see something like this...
+![Learn React Preview](walkthrough/images/basic-components-preview.png "Basic Components Preview")
 
 
 ---------
@@ -105,7 +164,7 @@ resolve: {
 
 ---------
 
-Topics:
+Ready for more?
 - Basic Components
 - [Props](https://github.com/ecoker/learn-react/tree/props)
 - [State](https://github.com/ecoker/learn-react/tree/state)

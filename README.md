@@ -1,7 +1,7 @@
 Basic Components
 -----------------
 
-Components are pretty straightforward, but they get really confusing really fast.
+Components are pretty straightforward, but they can get really confusing.
 
 For simplicity, I break components into categories:
 - Global Components
@@ -137,7 +137,7 @@ You should see something like this...
 
 ---------
 
-### Ok, you probably see something weird here
+### A quick note on Imports and File Locations
 Did you notice that the import for the _Menu_ didn't have a relative link? It just started with `components`. That's because of our webpack configuration.
 
 We've got a bunch of *aliases* and *extensions* defined that are going to clean up your code.

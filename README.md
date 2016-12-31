@@ -1,5 +1,5 @@
-Forms
------------
+Events
+------
 
 ** Coming Soon **
 

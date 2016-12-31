@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import Menu from 'components/Menu'
 import FancyTitle from 'components/FancyTitle'
 import Counter from './components/Counter'
+import HighFives from './components/HighFives'
 
 class Example extends Component {
   render() {
@@ -29,7 +30,7 @@ class Example extends Component {
         <div>
             <Menu { ...menuData } />
             <FancyTitle text="I'm a Prop!" />
-            <Counter name="High Fives" max={ 30 } min={ -10 } increment={ 2 } />
+            <HighFives max={ 30 } min={ -10 } increment={ 2 } />
             <Counter name="Backflips" max={ 5 } />
         </div>
     )

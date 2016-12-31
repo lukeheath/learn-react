@@ -19,7 +19,7 @@ The same _should_ be true for components.
 
 Let's create a new _Local Component_ to illustrate. Take note of the location of the file. We've placed it inside the _Example_ Container folder. That's because we plan to never use this outside of the Example Container and if we get rid of it some day, we want it to go away too.
 
-> This is personal preference for my own file organization. If you don't like it, toss it out! :)
+> This is a personal preference for my own file organization. If you don't like it, toss it out! :)
 
 _src: `/assets/js/containers/Example/components/Counter.jsx`_
 ```
@@ -147,7 +147,7 @@ export default Counter
 
 Now that we have some props we can pass in there, let's update our _Container Component_. 
 
-> Notice that the location of the import is different since it's relative to the location of this component instead of using the aliases from the WebPack config.
+> Notice that the location of the import is different since it's relative to the location of this component instead of using the alias from the WebPack config.
 
 _src: `/assets/js/containers/Example/components/Counter.jsx`_
 ```

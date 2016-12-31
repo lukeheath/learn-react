@@ -197,7 +197,6 @@ Backflips, on the other hand, only increment by the default (1) and you have a m
 ### Taking a Closer Look
 Let's take a closer look at a few things. Did you notice this in our `Counter.jsx` file?
 ```
-var tally = this.state.tally + this.props.increment > this.props.max ? this.props.max : this.state.tally + this.props.increment
 this.setState({
     tally
 })

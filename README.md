@@ -17,6 +17,10 @@ Similar to state. The variable `state` inside that very fancy function would be 
 
 The same _should_ be true for components. 
 
+Let's create a new component to illustrate.
+
+
+
 ---------
 
 Ready for more?

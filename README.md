@@ -217,12 +217,12 @@ Also, did you notice the way we're setting numbers?
 <Counter name="High Fives" max={ 30 } min={ -10 } increment={ 2 } />
 ```
 
- They're in parenthesis the same way we pass variables to a component. In other words, why didn't we do this?
+ They're in brackets the same way we pass variables to a component. In other words, why didn't we do this?
 ```
 <Counter name="High Fives" max="30" min="-10" increment="2" />
 ```
 
-Long story short, that turns our _numbers_ into _strings_. If you're passing numbers into a component and you want them to remain _numbers_ pass them in with brackets!
+Long story short, that turns our _numbers_ into _strings_. If you're passing _numbers_ into a component and you want them to remain _numbers_, pass them in with brackets!
 
 
 ---------

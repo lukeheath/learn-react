@@ -15,6 +15,7 @@
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
     "babel-runtime": "^6.18.0",
+    "compression": "^1.6.2",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.26.1",
     "ejs": "2.3.4",
@@ -50,6 +51,7 @@
   "license": "",
   "devDependencies": {
     "babel-plugin-react-transform": "^2.0.2",
+    "babel-plugin-transform-es2015-block-scoping": "^6.23.0",
     "react-transform-catch-errors": "^1.0.2",
     "react-transform-hmr": "^1.0.4",
     "style-loader": "^0.13.1",
